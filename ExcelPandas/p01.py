@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 
 # Les Excel-fil 
-df = pd.read_excel("Excel Python.xlsx")
+df = pd.read_excel("filep01.xlsx")
 
 # Legg til nye kolonner 
 df["Pris"] = np.nan
@@ -26,3 +26,5 @@ for ind in df.index:
 # Skriv ut 
 # print(i)
 # print(j)
+
+df.to_excel('filep01output.xlsx', index=False)
