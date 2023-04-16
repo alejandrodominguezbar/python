@@ -2,7 +2,7 @@
 import tkinter as tk
 from tkinter import filedialog, messagebox
 import pandas as pd
-import numpy as np
+# import numpy as np
 
 
 # Create a root window
@@ -18,11 +18,9 @@ df = pd.read_excel(file_path)
 # Skriv ut hele dataframen
 print(df)
 # Legg til nye kolonner 
-df["Pris"] = np.nan
-df["PrecioFijo"] = 35
-df["PrecioTotal"] = df["PrecioFijo"] * df["Kostnader"]
-df["K2"] = df["PrecioTotal"] / df["PrecioFijo"]
-df['compare'] = df['Kostnader'] == df['K2']
+df["Pris"] = df["Kostnader"]*(1+df["ODG"])
+df["PmedMVA"] = df["Pris"] * 1.25
+df["Høy dekningsgrad"] = df["ODG"] > 0.5
 
 # Skriv ut hele dataframen
 print(df)
@@ -35,6 +33,7 @@ result = messagebox.askyesno("Question", "Do you want to save?")
 # Print the user's response
 if result:
     print("User clicked Yes")
-    df.to_excel('filep02output.xlsx', index=False)
+    df.to_excel(pd.ExcelWriter('filep02output.xlsx', mode="a"), index=False, sheet_name = 'x2')
 else:
     print("User clicked No")
+    df.to_excel()
